@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        /* Apply basic reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Ambient gradient background */
+        body {
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #A2C2E1 0%, #86A6D2 50%, #6A8BD7 100%);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        /* Smooth ambient effect for the gradient */
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Sign-up container style */
+        .signup-container {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(15px); /* Glassmorphism effect */
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            color: #333;
+        }
+
+        /* Header text style */
+        .signup-container h2 {
+            margin-bottom: 20px;
+            font-size: 28px;
+            color: #4CAF50;
+            text-shadow: 0 0 10px rgba(0, 255, 128, 0.8);
+        }
+
+        /* Form group style */
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 2px solid rgba(0, 255, 255, 0.4);
+            font-size: 16px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #333;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input[type="submit"] {
+            background-color: #00ffea;
+            color: white;
+            cursor: pointer;
+            border: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .form-group input[type="submit"]:hover {
+            background-color: #00e7d4;
+            transform: scale(1.05);
+        }
+
+        .form-group input:focus {
+            border-color: #00b7ff;
+            background-color: rgba(0, 255, 242, 0.2);
+        }
+
+        /* Error message style */
+        .error {
+            color: #ff5c5c;
+            font-size: 14px;
+        }
+
+        /* Add some animations */
+        .signup-container {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        /* Fade in animation */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* Success message style */
+        .success {
+            color: #4CAF50;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <h2>Create an Account</h2>
+        <form id="signupForm" onsubmit="return handleSignup(event)">
+            <div class="form-group">
+                <input type="text" id="username" name="username" placeholder="Username" required>
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" name="password" placeholder="Password" required>
+            </div>
+            <div class="form-group">
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Sign Up">
+            </div>
+            <p class="error" id="error"></p>
+            <p class="success" id="success"></p>
+        </form>
+    </div>
+
+    <script>
+        // Handle user signup
+        function handleSignup(event) {
+            event.preventDefault(); // Prevent form submission
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const errorElement = document.getElementById('error');
+            const successElement = document.getElementById('success');
+
+            // Check if password and confirm password match
+            if (password !== confirmPassword) {
+                errorElement.textContent = "Passwords do not match. Please try again.";
+                successElement.textContent = "";
+                return false;
+            }
+
+            // Check if the username already exists
+            const existingUser = localStorage.getItem(username);
+            if (existingUser) {
+                errorElement.textContent = "Username already exists. Please choose another.";
+                successElement.textContent = "";
+                return false;
+            }
+
+            // Save user details to localStorage
+            localStorage.setItem(username, password);
+
+            // Show success message
+            successElement.textContent = "Account created successfully! You can now log in.";
+            errorElement.textContent = "";
+
+            // Clear the form
+            document.getElementById('signupForm').reset();
+
+            // Redirect to login page after 2 seconds
+            setTimeout(() => {
+                window.location.href = 'login.html';  // Redirect to the login page
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

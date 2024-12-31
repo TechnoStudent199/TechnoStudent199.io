@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Quiz - Hard Mode</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #E6F0FA;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .quiz-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 800px;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #4682B4;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .question {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .answers label {
+            display: block;
+            margin: 5px 0;
+        }
+
+        .btn {
+            background-color: #4682B4;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #5F9EA0;
+        }
+
+        .result {
+            font-size: 1.2rem;
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="quiz-container">
+        <h1>HTML Quiz - Hard Mode</h1>
+        <form id="quizForm">
+            <!-- Question 1 -->
+            <div class="question">
+                <p>1. What does the <code>&lt;head&gt;</code> tag contain?</p>
+                <div class="answers">
+                    <label><input type="radio" name="q1" value="A"> Content for the body of the page</label>
+                    <label><input type="radio" name="q1" value="B"> Metadata for the document</label>
+                    <label><input type="radio" name="q1" value="C"> Links to other pages</label>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question">
+                <p>2. Which HTML element is used to specify a footer in a document?</p>
+                <div class="answers">
+                    <label><input type="radio" name="q2" value="A"> <code>&lt;footer&gt;</code></label>
+                    <label><input type="radio" name="q2" value="B"> <code>&lt;bottom&gt;</code></label>
+                    <label><input type="radio" name="q2" value="C"> <code>&lt;end&gt;</code></label>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question">
+                <p>3. What is the default value of the <code>position</code> property in CSS?</p>
+                <div class="answers">
+                    <label><input type="radio" name="q3" value="A"> static</label>
+                    <label><input type="radio" name="q3" value="B"> relative</label>
+                    <label><input type="radio" name="q3" value="C"> absolute</label>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question">
+                <p>4. Which of the following is NOT a valid HTML element?</p>
+                <div class="answers">
+                    <label><input type="radio" name="q4" value="A"> <code>&lt;div&gt;</code></label>
+                    <label><input type="radio" name="q4" value="B"> <code>&lt;paragraph&gt;</code></label>
+                    <label><input type="radio" name="q4" value="C"> <code>&lt;span&gt;</code></label>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question">
+                <p>5. What is the purpose of the <code>&lt;meta&gt;</code> tag in the <code>&lt;head&gt;</code> section?</p>
+                <div class="answers">
+                    <label><input type="radio" name="q5" value="A"> To include external JavaScript</label>
+                    <label><input type="radio" name="q5" value="B"> To set character encoding and other metadata</label>
+                    <label><input type="radio" name="q5" value="C"> To include external CSS files</label>
+                </div>
+            </div>
+
+            <!-- Add the rest of the 20 questions similarly -->
+            
+            <!-- Submit Button -->
+            <button type="submit" class="btn">Submit Quiz</button>
+        </form>
+
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        const form = document.getElementById('quizForm');
+        const resultDiv = document.getElementById('result');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent the form from refreshing the page
+
+            let score = 0;
+
+            // Answer keys for each question
+            const answers = {
+                q1: 'B',
+                q2: 'A',
+                q3: 'A',
+                q4: 'B',
+                q5: 'B'
+                // Add the remaining answers here (e.g., q6: 'A', q7: 'C', etc.)
+            };
+
+            // Check answers
+            for (let i = 1; i <= 5; i++) {
+                const userAnswer = form.querySelector(`input[name="q${i}"]:checked`);
+                if (userAnswer && userAnswer.value === answers[`q${i}`]) {
+                    score++;
+                }
+            }
+
+            // Show result
+            resultDiv.textContent = `Your score is ${score} out of 25.`;
+        });
+    </script>
+
+</body>
+</html>
